@@ -1,3 +1,8 @@
+__author__ = "R4z1xx"
+__copyright__ = "Copyright (c) 2024 R4z1xx"
+__license__ = "MIT"
+__version__ = "1.0"
+
 import logging
 import random
 import sys
