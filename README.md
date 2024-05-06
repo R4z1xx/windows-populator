@@ -3,13 +3,6 @@
 
 **[FR]** Windows Populator est un outil que j'ai écrit pour générer des fichiers et dossiers aléatoirement dans les répertoires des utilisateurs sous Windows. J'ai conçu cet outil à l'origine pour préparer des labs à des tests de ransomware, mais il peut être utilisé dans d'autres situations, comme des tests de sauvegarde par exemple.
 
-# Features
-- Generates files with random names, content, and extensions (.txt, .docx, .xlsx, etc.).
-- Automatically discovers user directories under C:\Users.
-- Creates a random number of files in each user directory.
-- Occasionally creates subdirectories and files inside them for added complexity.
-- Generates a text file with paths of files and directories created
-
 # Requirements
 - Windows OS
 - Python 3.6 >= (If using the Python version)
@@ -22,9 +15,9 @@
 4. The tool will automatically generate random files and directories in the user directories under C:\Users\\\<user>.
 
 #### Using the Python script :
-1. Install Python 3.x, if not already installed.
+1. Install Python 3.6 or superior, if not already installed.
 2. Clone the Windows Populator repository.
-3. Run the script : `python windows_populator.py`
+3. Run the script : `python3 windows_populator.py`
 4. The tool will automatically generate random files and directories in the user directories under C:\Users\\\<user>.
 
 # License
