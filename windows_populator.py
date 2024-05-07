@@ -36,14 +36,13 @@ class LoremIpsum:
         return ' '.join(random.choices(self.words, k=1)).capitalize() + ' '.join(random.choices(self.words, k=random.randint(100, 1000))) + '.'
 
 class WindowsPopulator:
-    def __init__(self, logger):
+    def __init__(self):
         self.default_users = ['Administrator', 'Public', 'Default', 'All Users', 'defaultuser0', 'Default User']
         self.folders = ['Desktop', 'Documents', 'Pictures', 'Music', 'Downloads', 'Videos']
         self.extensions = ['.txt','.docx', '.xslx', '.pptx', '.pdf', '.jpg', '.jpeg', '.png', '.mp3', '.zip']
         self.user_directory = self.get_user_directory()
         self.file_count = 0
         self.subdir_count = 0
-        self.logger = logger
     
     def get_user_directory(self):
         """
@@ -56,7 +55,7 @@ class WindowsPopulator:
             user_path = os.path.join(users_path, user)
             if os.path.isdir(user_path) and not user in self.default_users:
                 user_directory.append(user_path)
-        return user_directory if user_directory else self.logger.error("No user directories found.") and sys.exit()
+        return user_directory if user_directory else logger.error("No user directories found.") and sys.exit()
     
     def populate(self):
         """
@@ -67,10 +66,10 @@ class WindowsPopulator:
         for user_dir in self.user_directory:
             for dir in os.listdir(user_dir):
                 if dir in self.folders:
-                    self.logger.info(f"Populating directory: {os.path.join(user_dir, dir)}")
+                    logger.info(f"Populating directory: {os.path.join(user_dir, dir)}")
                     self.create_files(os.path.join(user_dir, dir))
-        self.logger.info(f"Total files created: {self.file_count}")
-        self.logger.info(f"Total subdirectories created: {self.subdir_count}")
+        logger.info(f"Total files created: {self.file_count}")
+        logger.info(f"Total subdirectories created: {self.subdir_count}")
         return
 
     def create_file(self, user_dir):
@@ -83,7 +82,7 @@ class WindowsPopulator:
         file_path = os.path.join(user_dir, file_name + random.choice(self.extensions))
         with open(file_path, 'w') as file:
             file.write(lorem.generate_content())
-            self.logger.info(f"File created: {file_path}")
+            logger.info(f"File created: {file_path}")
             self.file_count += 1
 
     def create_subdirectory(self, user_dir):
@@ -111,23 +110,24 @@ class WindowsPopulator:
                     for _ in range(0, random.randint(5, 15)):
                         self.create_file(subdir_path)
             except:
-                logger.error("Error creating file.") # DEBUGGING ONLY
+                logger.error("Error creating file.")
                 continue
 
-def setup_logger():
+def setup_logger(directory):
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
-    handler = logging.FileHandler(os.path.join(os.path.dirname(os.path.abspath(__file__)), "created_files.txt"))
+    handler = logging.FileHandler(str(os.path.join(os.path.join(directory, "Desktop"), "CREATED_FILES.txt")))
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO , format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S') # for terminal only
-    logger = setup_logger()
+    logging.basicConfig(level=logging.INFO , format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
     lorem = LoremIpsum()
-    populator = WindowsPopulator(logger)
+    populator = WindowsPopulator()
+    logger = setup_logger(populator.user_directory[0])
+
     populator.populate()
     logger.info("Populating completed.")
