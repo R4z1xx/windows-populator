@@ -5,7 +5,7 @@
 
 # Requirements
 - Windows OS
-- Python 3.6 >= (If using the Python version)
+- Python 3.6 >= (For the Python version)
 
 # Usage
 #### Using the executable :
