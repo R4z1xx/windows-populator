@@ -10,7 +10,7 @@
 # Usage
 #### Using the executable :
 1. Download the latest release from the [releases](https://github.com/R4z1xx/windows-populator/releases) page.
-2. Extract the contents of the downloaded archive.
+2. Extract the contents of the zip archive.
 3. Run the exe file : `windows_populator.exe`
 4. The tool will automatically generate random files and directories in the user directories under C:\Users\\\<user>.
 
